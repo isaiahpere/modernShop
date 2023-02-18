@@ -1,8 +1,12 @@
+import styled from "styled-components";
+
+const ProductsContainer = styled.div``;
+
 const Products = () => {
   return (
-    <div>
+    <ProductsContainer>
       <div>Products Categories</div>
-    </div>
+    </ProductsContainer>
   );
 };
 

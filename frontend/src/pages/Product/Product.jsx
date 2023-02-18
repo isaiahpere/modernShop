@@ -1,8 +1,12 @@
+import styled from "styled-components";
+
+const ProductContainer = styled.div``;
+
 const Product = () => {
   return (
-    <div>
+    <ProductContainer>
       <div>Single Product Page</div>
-    </div>
+    </ProductContainer>
   );
 };
 
