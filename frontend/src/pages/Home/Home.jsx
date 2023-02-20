@@ -4,14 +4,15 @@ import Hero from "../../components/Hero";
 import FeaturedProducts from "../../components/FeaturedProducts";
 
 const HomeContainer = styled.div`
-  overflow: hidden;
+  /* overflow: hidden; */
 `;
 
 const Home = () => {
   return (
     <HomeContainer>
       <Hero />
-      <FeaturedProducts />
+      <FeaturedProducts type="featured" />
+      <FeaturedProducts type="trending" />
     </HomeContainer>
   );
 };

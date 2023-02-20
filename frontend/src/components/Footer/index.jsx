@@ -9,8 +9,8 @@ const FooterContainer = styled.div`
 const Footer = () => {
   return (
     <FooterContainer>
-      <TopSection></TopSection>
-      <BottomSection></BottomSection>
+      {/* <TopSection></TopSection>
+      <BottomSection></BottomSection> */}
     </FooterContainer>
   );
 };

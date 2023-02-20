@@ -1,11 +1,17 @@
 import styled from "styled-components";
 
-const SectionContainer = styled.div``;
+import InfoSection from "./InfoSection";
+import Products from "./Products";
 
-const FeaturedProducts = () => {
+const SectionContainer = styled.div`
+  margin: 100px 200px;
+`;
+
+const FeaturedProducts = ({ type }) => {
   return (
     <SectionContainer>
-      <div>This is Featured Products</div>
+      <InfoSection title={type} />
+      <Products />
     </SectionContainer>
   );
 };

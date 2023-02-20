@@ -11,6 +11,11 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   gap: 24px;
+  display: none;
+
+  @media (min-width: 768px) {
+    display: flex;
+  }
 `;
 
 const CartContainer = styled.div`
