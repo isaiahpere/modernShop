@@ -4,7 +4,7 @@ import InfoSection from "./InfoSection";
 import Products from "./Products";
 
 const SectionContainer = styled.div`
-  margin: 100px 200px;
+  margin: 60px 0;
 `;
 
 const FeaturedProducts = ({ type }) => {

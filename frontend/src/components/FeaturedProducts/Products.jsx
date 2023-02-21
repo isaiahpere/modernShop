@@ -5,7 +5,15 @@ import Card from "../GlobalStyles/Card";
 const SectionContainer = styled.div`
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 15px;
+
+  @media (min-width: 1024px) {
+    flex-wrap: nowrap;
+  }
+  @media (min-width: 1440px) {
+    gap: 20px;
+  }
 `;
 
 const Products = () => {

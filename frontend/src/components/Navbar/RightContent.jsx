@@ -13,7 +13,7 @@ const Container = styled.div`
   gap: 24px;
   display: none;
 
-  @media (min-width: 768px) {
+  @media (min-width: 1024px) {
     display: flex;
   }
 `;

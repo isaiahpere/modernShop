@@ -8,13 +8,25 @@ const Flex = styled.div`
   justify-content: center;
 `;
 
-const Container = styled(Link)``;
+const Container = styled(Link)`
+  padding: 0 10px;
+  margin-bottom: 16px;
+
+  @media (min-width: 1024px) {
+    padding: 0;
+  }
+`;
 
 const CardContainer = styled.div`
-  width: 280px;
+  width: 340px;
+  height: auto;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+
+  @media (min-width: 1024px) {
+    width: 240px;
+    height: auto;
+  }
 `;
 
 const ImageWrapper = styled.div`
@@ -22,6 +34,7 @@ const ImageWrapper = styled.div`
   height: 400px;
   overflow: hidden;
   border-radius: 5px;
+  padding-bottom: 4px;
 `;
 
 const ImageBadge = styled(Flex)`
@@ -42,6 +55,8 @@ const ImageBadge = styled(Flex)`
 const ImageFront = styled.img`
   position: absolute;
   width: 100%;
+  height: 100%;
+  object-fit: cover;
   opacity: 1;
   z-index: 2;
   transition: opacity 0.5s ease;
@@ -53,26 +68,25 @@ const ImageFront = styled.img`
 const ImageBack = styled.img`
   position: absolute;
   width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 
 const Title = styled.h3`
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 400;
   text-transform: capitalize;
-  padding: 0 2px;
 `;
 
 const PriceContainer = styled.div`
   display: flex;
   align-items: center;
-  padding: 0 2px;
-  gap: 12px;
 `;
 
 const Price = styled.p`
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 600;
-  color: #242424;
+  color: #54aa54;
   ${(props) =>
     props.oldPrice &&
     `
@@ -93,8 +107,7 @@ const Card = ({ item }) => {
         </ImageWrapper>
         <Title>{item.title}</Title>
         <PriceContainer>
-          <Price oldPrice>${item.oldPrice}</Price>
-          <Price>${item.price}</Price>
+          <Price>${Number(item.price).toFixed(2)}</Price>
         </PriceContainer>
       </CardContainer>
     </Container>
