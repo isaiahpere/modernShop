@@ -1,8 +1,10 @@
 import styled from "styled-components";
+import { useState } from "react";
 
 import Logo from "./Logo";
 import LeftContent from "./LeftContent";
 import RightContent from "./RightContent";
+import Cart from "../Cart";
 
 const FlexContainer = styled.div`
   display: flex;
@@ -10,7 +12,9 @@ const FlexContainer = styled.div`
   height: 80px;
 `;
 
-const NavContainer = styled.div``;
+const NavContainer = styled.div`
+  position: relative;
+`;
 
 const Wrapper = styled(FlexContainer)`
   display: flex;
@@ -20,13 +24,19 @@ const Wrapper = styled(FlexContainer)`
 `;
 
 const Navbar = () => {
+  //state
+  const [cartVisible, setCartVisible] = useState(false);
+
   return (
     <NavContainer>
       <Wrapper>
         <LeftContent />
         <Logo />
-        <RightContent />
+        <RightContent changeCartVisible={setCartVisible} />
       </Wrapper>
+      {cartVisible && (
+        <Cart cartOpen={cartVisible} toggleCart={setCartVisible} />
+      )}
     </NavContainer>
   );
 };

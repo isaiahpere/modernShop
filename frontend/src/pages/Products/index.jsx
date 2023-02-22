@@ -6,7 +6,10 @@ import List from "../../components/List";
 
 const ProductsContainer = styled.div`
   display: flex;
-  padding: 30px;
+  padding: 20px;
+  @media (min-width: 768px) {
+    padding: 30px;
+  }
 `;
 
 const FilterSection = styled.div`
@@ -14,6 +17,7 @@ const FilterSection = styled.div`
   position: sticky;
   height: 100%;
   top: 20px;
+  padding-right: 10px;
 `;
 
 const FilterItem = styled.div`
@@ -46,6 +50,7 @@ const ContentImage = styled.img`
   width: 100%;
   height: 300px;
   object-fit: cover;
+  padding: 0 10px;
   margin-bottom: 40px;
 `;
 

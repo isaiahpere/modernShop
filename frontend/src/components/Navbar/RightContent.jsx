@@ -6,6 +6,7 @@ import { MdOutlineShoppingCart } from "react-icons/md";
 
 import CustomLink from "../GlobalStyles/Link";
 import NavItem from "../GlobalStyles/NavItem";
+import { RightNavLinks } from "../../utilities/data/navLinks";
 
 const Container = styled.div`
   display: flex;
@@ -62,21 +63,18 @@ const CartBadge = styled.span`
   color: #ffffff;
 `;
 
-const RightContent = () => {
+const RightContent = ({ changeCartVisible }) => {
+  const toggleCart = () => {
+    changeCartVisible((prev) => !prev);
+  };
+
   return (
     <Container>
-      <NavItem>
-        <CustomLink to="/">Home</CustomLink>
-      </NavItem>
-      <NavItem>
-        <CustomLink to="/">About</CustomLink>
-      </NavItem>
-      <NavItem>
-        <CustomLink to="/">Contact</CustomLink>
-      </NavItem>
-      <NavItem>
-        <CustomLink to="/">Stores</CustomLink>
-      </NavItem>
+      {RightNavLinks.map((item) => (
+        <NavItem>
+          <CustomLink to={item.path}>{item.title}</CustomLink>
+        </NavItem>
+      ))}
       <IconContainer>
         <NavItem>
           <SearchIcon />
@@ -88,7 +86,7 @@ const RightContent = () => {
           <PersonIcon />
         </NavItem>
         <NavItem>
-          <CartContainer>
+          <CartContainer onClick={toggleCart}>
             <CartIcon />
             <CartBadge>21</CartBadge>
           </CartContainer>
