@@ -82,8 +82,6 @@ const Hero = () => {
     );
   };
 
-  console.log(currentSlide);
-
   return (
     <Section>
       <Carousel offsetValue={currentSlide} aria-label="new fashion image">

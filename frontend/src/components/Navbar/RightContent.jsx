@@ -71,7 +71,7 @@ const RightContent = ({ changeCartVisible }) => {
   return (
     <Container>
       {RightNavLinks.map((item) => (
-        <NavItem>
+        <NavItem key={item.id}>
           <CustomLink to={item.path}>{item.title}</CustomLink>
         </NavItem>
       ))}

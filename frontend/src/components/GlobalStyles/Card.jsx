@@ -97,17 +97,19 @@ const Price = styled.p`
 `;
 
 const Card = ({ item }) => {
+  const imageOne = `${process.env.REACT_APP_UPLOAD_URL}${item.attributes?.image?.data?.attributes?.url}`;
+  const imageTwo = `${process.env.REACT_APP_UPLOAD_URL}${item.attributes?.image2?.data?.attributes?.url}`;
   return (
     <Container to={`/product/${item.id}`}>
       <CardContainer>
         <ImageWrapper>
-          {item.isNew && <ImageBadge>New</ImageBadge>}
-          <ImageFront src={item.img} alt={item.title} />
-          <ImageBack src={item.img2} alt={item.title} />
+          {item.attributes.isNew && <ImageBadge>New</ImageBadge>}
+          <ImageFront src={imageOne} alt={item.title} />
+          <ImageBack src={imageTwo} alt={item.title} />
         </ImageWrapper>
-        <Title>{item.title}</Title>
+        <Title>{item.attributes.title}</Title>
         <PriceContainer>
-          <Price>${Number(item.price).toFixed(2)}</Price>
+          <Price>${Number(item.attributes.price).toFixed(2)}</Price>
         </PriceContainer>
       </CardContainer>
     </Container>

@@ -16,10 +16,10 @@ const SectionContainer = styled.div`
   }
 `;
 
-const Products = () => {
+const Products = ({ products }) => {
   return (
     <SectionContainer>
-      {featuredData.map((item) => (
+      {products.map((item) => (
         <Card key={item.id} item={item} />
       ))}
     </SectionContainer>
