@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
 
-import Logo from "./Logo";
 import LeftContent from "./LeftContent";
 import RightContent from "./RightContent";
 import Cart from "../Cart";
@@ -20,7 +19,11 @@ const Wrapper = styled(FlexContainer)`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 30px;
+  padding: 10px 14px;
+
+  @media (min-width: 1024px) {
+    padding: 10px 30px;
+  }
 `;
 
 const Navbar = () => {
@@ -31,7 +34,6 @@ const Navbar = () => {
     <NavContainer>
       <Wrapper>
         <LeftContent />
-        <Logo />
         <RightContent changeCartVisible={setCartVisible} />
       </Wrapper>
       {cartVisible && (

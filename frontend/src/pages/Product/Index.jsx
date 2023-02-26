@@ -3,6 +3,8 @@ import { useState } from "react";
 
 import ImageSection from "./ImageSection";
 import ProductInfoSection from "./ProductInfoSection";
+import useFetch from "../../utilities/hooks/useFetch";
+import { useParams } from "react-router-dom";
 
 const ProductContainer = styled.div`
   display: flex;
@@ -18,35 +20,26 @@ const ProductContainer = styled.div`
 `;
 
 const Product = () => {
+  const { id } = useParams();
   const [selectedImage, setSelectedImage] = useState(0);
-  const [quantity, setQuantity] = useState(1);
 
-  const tempImages = [
-    "https://images.pexels.com/photos/458649/pexels-photo-458649.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    "https://images.pexels.com/photos/1263986/pexels-photo-1263986.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-  ];
-
-  const handleQtyDecrease = () => {
-    if (quantity === 1) return;
-    setQuantity((prev) => prev - 1);
-  };
-  const handleQtyIncrease = () => {
-    if (quantity === 9) return;
-    setQuantity((prev) => prev + 1);
-  };
+  const url = `/products/${id}?populate=*`;
+  const { data, loading } = useFetch(url);
+  const imagesFound = data?.attributes?.imagenes; // check we have images
 
   return (
     <ProductContainer>
-      <ImageSection
-        images={tempImages}
-        selectedIndex={selectedImage}
-        onIndexChange={setSelectedImage}
-      />
-      <ProductInfoSection
-        increaseQty={handleQtyIncrease}
-        decreaseQty={handleQtyDecrease}
-        quantity={quantity}
-      />
+      {!imagesFound && loading && <div>Loading</div>}
+      {imagesFound && !loading && (
+        <>
+          <ImageSection
+            images={data.attributes.imagenes.data}
+            selectedIndex={selectedImage}
+            onIndexChange={setSelectedImage}
+          />
+          <ProductInfoSection product={data} />
+        </>
+      )}
     </ProductContainer>
   );
 };

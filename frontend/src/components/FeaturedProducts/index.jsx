@@ -9,15 +9,9 @@ const SectionContainer = styled.div`
   margin: 60px 0;
 `;
 
-const LoadingContiner = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
 const FeaturedProducts = ({ type }) => {
   const url = `/products?populate=*&[filters][type][$eq]=${type}`;
-  const { data, loading, error } = useFetch(url);
+  const { data, loading } = useFetch(url);
 
   return (
     <SectionContainer>

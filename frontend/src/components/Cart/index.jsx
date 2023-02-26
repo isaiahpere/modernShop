@@ -1,33 +1,23 @@
 import styled from "styled-components";
-import { IoMdCloseCircle } from "react-icons/io";
+import { FaOpencart } from "react-icons/fa";
+import { enableBodyScroll } from "body-scroll-lock";
 
 import CartItem from "./CartItem";
 import CartTotalInfo from "./CartTotalInfo";
+import { useSelector } from "react-redux";
 
-const tempDate = [
-  {
-    id: 1,
-    img: "https://images.pexels.com/photos/6764007/pexels-photo-6764007.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    img2: "https://images.pexels.com/photos/6712033/pexels-photo-6712033.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    title: "jacket",
-    description:
-      "The best jacket you can wearm when is cold outside and you want to stay warm. Grab you jacket and quickly put it on with a one action zippper. You will not regret it",
-    oldPrice: 12,
-    price: 9,
-    isNew: true,
-  },
-  {
-    id: 2,
-    img: "https://images.pexels.com/photos/4960250/pexels-photo-4960250.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    img2: "https://images.pexels.com/photos/1129019/pexels-photo-1129019.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    title: "jeans",
-    description:
-      "The best jacket you can wearm when is cold outside and you want to stay warm. Grab you jacket and quickly put it on with a one action zippper. You will not regret it",
-    oldPrice: 26,
-    price: 18,
-    isNew: true,
-  },
-];
+const Layover = styled.div`
+  position: absolute;
+  right: 0;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  height: 100vh;
+  z-index: 200;
+  overflow: hidden;
+`;
 
 const Container = styled.div`
   position: absolute;
@@ -37,7 +27,7 @@ const Container = styled.div`
   max-height: 80vh;
   background: #fff;
   z-index: 100;
-  padding: 20px;
+  padding: 30px;
   box-shadow: 2px 2px 4px 1px rgba(0, 0, 0, 0.2);
   border-radius: 4px 0 0 4px;
   -ms-overflow-style: none; /* for Internet Explorer, Edge */
@@ -57,23 +47,6 @@ const Container = styled.div`
   }
 `;
 
-const CloseIcon = styled(IoMdCloseCircle)`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 24px;
-  color: #242424;
-  font-weight: 400;
-  cursor: pointer;
-  transition: transform 0.4s ease;
-  &:hover {
-    transform: rotate(180deg);
-  }
-  @media (min-width: 1024px) {
-    font-size: 30px;
-  }
-`;
-
 const CartHeader = styled.h1`
   font-size: 16px;
   color: var(--secondary);
@@ -85,20 +58,68 @@ const CartHeader = styled.h1`
   }
 `;
 
+const EmptyCartContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+  min-height: 160px;
+`;
+
+const EmptyCartText = styled.p`
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: #242424;
+`;
+
+const EmptyCartIconContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const EmptyCartIcon = styled(FaOpencart)`
+  font-size: 80px;
+`;
+
 const Cart = ({ cartOpen, toggleCart }) => {
-  const handleToggleCart = () => {
+  // products
+  const products = useSelector((state) => state.cart.products);
+  const isCartEmpty = products.length < 1;
+
+  const handleOutsideClick = () => {
     toggleCart();
+    enableBodyScroll(document);
   };
 
+  console.log("products from cart");
+  console.log(products);
+
   return (
-    <Container cartOpen={cartOpen}>
-      <CloseIcon onClick={handleToggleCart} />
-      <CartHeader>Products In Your Cart</CartHeader>
-      {tempDate.map((item) => (
-        <CartItem item={item} key={item.id} />
-      ))}
-      <CartTotalInfo />
-    </Container>
+    <Layover cartOpen={cartOpen} onClick={handleOutsideClick}>
+      {isCartEmpty && <div>Cart is empty</div>}
+      <Container onClick={(e) => e.stopPropagation()}>
+        {isCartEmpty && (
+          <EmptyCartContainer>
+            <EmptyCartText>Cart is empty!</EmptyCartText>
+            <EmptyCartIconContainer>
+              <EmptyCartIcon />
+            </EmptyCartIconContainer>
+          </EmptyCartContainer>
+        )}
+        {!isCartEmpty && (
+          <>
+            <CartHeader>Products In Your Cart</CartHeader>
+            {products.map((item) => (
+              <CartItem item={item} key={item.id} />
+            ))}
+            <CartTotalInfo products={products} />
+          </>
+        )}
+      </Container>
+    </Layover>
   );
 };
 

@@ -1,11 +1,22 @@
 import styled from "styled-components";
 import { FaRegTrashAlt } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { removeProductFromCart } from "../../Redux/cartReducer";
 
 const Container = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 10px;
   margin-bottom: 14px;
+`;
+
+const CartContentContainer = styled.div`
+  display: flex;
+`;
+
+const ImageContainer = styled.div`
+  margin-right: 20px;
 `;
 
 const Image = styled.img`
@@ -55,17 +66,34 @@ const TrashIcon = styled(FaRegTrashAlt)`
 `;
 
 const CartItem = ({ item }) => {
+  const dispatch = useDispatch();
+  console.log("item from cart");
+  console.log(item);
+
+  const handleRemoveProduct = () => {
+    dispatch(removeProductFromCart(item.id));
+  };
+
   return (
     <Container>
-      <Image src={item.img} alt="" />
-      <CartInfoContainer>
-        <ItemTitle>{item.title}</ItemTitle>
-        <ItemDescription>
-          {item.description?.substring(0, 60)}...
-        </ItemDescription>
-        <ItemPrice>1 x ${item.price}</ItemPrice>
-      </CartInfoContainer>
-      <TrashContainer>
+      <CartContentContainer>
+        <ImageContainer>
+          <Image
+            src={`${process.env.REACT_APP_UPLOAD_URL}${item.image}`}
+            alt=""
+          />
+        </ImageContainer>
+        <CartInfoContainer>
+          <ItemTitle>{item.title}</ItemTitle>
+          <ItemDescription>
+            {item.description?.substring(0, 60)}...
+          </ItemDescription>
+          <ItemPrice>
+            {item.quantity} x ${item.price}
+          </ItemPrice>
+        </CartInfoContainer>
+      </CartContentContainer>
+      <TrashContainer onClick={handleRemoveProduct}>
         <TrashIcon />
       </TrashContainer>
     </Container>

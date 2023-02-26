@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { IoIosArrowDown } from "react-icons/io";
 
 import CustomLink from "../GlobalStyles/Link";
 import NavItem from "../GlobalStyles/NavItem";
@@ -7,30 +6,32 @@ import NavItem from "../GlobalStyles/NavItem";
 const Container = styled.div`
   display: flex;
   align-items: center;
-  gap: 24px;
-  display: none;
+  gap: 10px;
 
   @media (min-width: 768px) {
     display: flex;
+    gap: 24px;
+  }
+
+  @media (min-width: 1024px) {
   }
 `;
 
-const Country = styled.img``;
+const Logo = styled.img`
+  width: 30px;
 
-const ArrowDown = styled(IoIosArrowDown)``;
-
-const ItemCurrency = styled.span``;
+  @media (min-width: 768px) {
+    width: 40px;
+  }
+`;
 
 const LeftContent = () => {
   return (
     <Container>
       <NavItem>
-        <Country src="/images/flag.png" />
-        <ArrowDown />
-      </NavItem>
-      <NavItem>
-        <ItemCurrency>USD</ItemCurrency>
-        <ArrowDown />
+        <CustomLink to="/">
+          <Logo src="/images/logo.png" alt="" />
+        </CustomLink>
       </NavItem>
       <NavItem>
         <CustomLink to="/products/1">Men</CustomLink>

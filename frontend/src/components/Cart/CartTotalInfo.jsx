@@ -1,4 +1,6 @@
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { resetCart } from "../../Redux/cartReducer";
 
 const TotalContainer = styled.div`
   display: flex;
@@ -46,16 +48,28 @@ const ResetCart = styled.span`
   cursor: pointer;
 `;
 
-const CartTotalInfo = () => {
+const CartTotalInfo = ({ products }) => {
+  const dispatch = useDispatch();
+
+  const subtotal = products
+    .reduce((acc, item) => {
+      return acc + item.quantity * item.price;
+    }, 0)
+    .toFixed(2);
+
+  const handleResetCart = () => {
+    dispatch(resetCart());
+  };
+
   return (
     <>
       <TotalContainer>
         <SubtotalText>Subtotal</SubtotalText>
-        <SubtotalPrice>$124.00</SubtotalPrice>
+        <SubtotalPrice>${subtotal}</SubtotalPrice>
       </TotalContainer>
       <Checkout>
         <CheckoutButton>Checkout</CheckoutButton>
-        <ResetCart>Reset Cart</ResetCart>
+        <ResetCart onClick={handleResetCart}>Reset Cart</ResetCart>
       </Checkout>
     </>
   );

@@ -49,12 +49,18 @@ const ImageSection = ({ images, selectedIndex, onIndexChange }) => {
     <SectionContainer>
       <SmallImageContainer>
         {images.map((image, idx) => (
-          <Thumbnail src={image} alt="" onClick={() => onIndexChange(idx)} />
+          <Thumbnail
+            key={image.id}
+            src={`${process.env.REACT_APP_UPLOAD_URL}${image.attributes.url}`}
+            alt=""
+            onClick={() => onIndexChange(idx)}
+          />
         ))}
-        {/* <Thumbnail src={images[1]} alt="" onClick={() => onIndexChange(1)} /> */}
       </SmallImageContainer>
       <LargeImageContainer>
-        <Image src={images[selectedIndex]} />
+        <Image
+          src={`${process.env.REACT_APP_UPLOAD_URL}${images[selectedIndex].attributes.url}`}
+        />
       </LargeImageContainer>
     </SectionContainer>
   );

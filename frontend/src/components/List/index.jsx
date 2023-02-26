@@ -12,7 +12,7 @@ const Container = styled.div`
   flex-wrap: wrap;
 `;
 
-const List = ({ categoryId, sort, subCategories }) => {
+const List = ({ categoryId, sort = "asc", subCategories }) => {
   // build filter url for subcategories
   let url = "";
   if (subCategories) {
@@ -22,6 +22,9 @@ const List = ({ categoryId, sort, subCategories }) => {
     });
   }
 
+  // if sort method provided  update url
+  if (sort) url += `&sort=price:${sort}`;
+
   // fetch data
   const { data, loading } = useFetch(
     `/products?populate=*&[filters][categories][id]=${categoryId}${url}`
@@ -29,8 +32,14 @@ const List = ({ categoryId, sort, subCategories }) => {
 
   return (
     <Container>
-      {loading && <Spinner />}
-      {!loading && data.map((item) => <Card key={item.id} item={item} />)}
+      {/* create a no products message */}
+      {data.length < 1 && <div>No Products Found</div>}
+      {data.length > 0 && (
+        <>
+          {loading && <Spinner />}
+          {!loading && data.map((item) => <Card key={item.id} item={item} />)}
+        </>
+      )}
     </Container>
   );
 };

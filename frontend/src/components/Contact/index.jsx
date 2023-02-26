@@ -22,17 +22,20 @@ const Container = styled(Flex)`
 `;
 
 const Wrapper = styled(Flex)`
+  flex-direction: column;
   justify-content: space-between;
-  width: 50%;
+  /* width: 50%; */
 `;
 
 const CustomText = styled.span`
   font-size: 18px;
   font-weight: 600;
+  margin-bottom: 12px;
 `;
 
 const EmailContainer = styled.div`
   height: 25px;
+  margin-bottom: 12px;
 `;
 
 const EmailInput = styled.input`

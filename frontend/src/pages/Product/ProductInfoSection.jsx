@@ -1,7 +1,10 @@
 import styled from "styled-components";
+import { useState } from "react";
 import { RxPlus, RxMinus } from "react-icons/rx";
 import { MdOutlineAddShoppingCart, MdCompareArrows } from "react-icons/md";
 import { AiOutlineHeart } from "react-icons/ai";
+import { useDispatch } from "react-redux";
+import { addProductTocart } from "../../Redux/cartReducer";
 
 const Flex = styled.div`
   display: flex;
@@ -53,6 +56,11 @@ const QuanityControlContainer = styled.div`
   justify-content: center;
   gap: 8px;
   margin-bottom: 10px;
+
+  // disable text select
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 
   @media (min-width: 1024px) {
     justify-content: unset;
@@ -171,27 +179,55 @@ const InfoItem = styled.span`
   color: gray;
 `;
 
-const ProductInfoSection = ({ increaseQty, decreaseQty, quantity }) => {
+const ProductInfoSection = ({ product }) => {
+  const dispatch = useDispatch();
+  // usestate
+  const [quantity, setQuantity] = useState(1);
+  //destruct objects from data
+  const { title, description, price, image } = product.attributes;
+
+  const handleQtyDecrease = () => {
+    if (quantity === 1) return;
+    setQuantity((prev) => prev - 1);
+  };
+  const handleQtyIncrease = () => {
+    if (quantity === 9) return;
+    setQuantity((prev) => prev + 1);
+  };
+
+  const handleAddToCart = () => {
+    console.log("product from handleAddToCart");
+    console.log(product);
+    const cartData = {
+      id: product.id,
+      title,
+      description,
+      price,
+      image: image.data.attributes.url,
+      quantity,
+    };
+
+    dispatch(addProductTocart(cartData));
+
+    // reset quantity back to 1
+    setQuantity(1);
+  };
+
   return (
     <SectionContainer>
-      <SectionTitle>The best Hat Ever</SectionTitle>
-      <Price>$199.00</Price>
-      <Description>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias, nulla?
-        Voluptas delectus veniam magni commodi ut sapiente alias natus ab!
-        Repellat doloremque asperiores architecto a iusto unde. In, expedita
-        earum. Fugiat voluptates quibusdam vero consequatur deleniti.
-      </Description>
+      <SectionTitle>{title}</SectionTitle>
+      <Price>${Number(price).toFixed(2)}</Price>
+      <Description>{description}</Description>
       <QuanityControlContainer>
-        <QuantityButton onClick={decreaseQty}>
+        <QuantityButton onClick={handleQtyDecrease}>
           <DecreaseIcon />
         </QuantityButton>
         <Quantity>{quantity}</Quantity>
-        <QuantityButton onClick={increaseQty}>
+        <QuantityButton onClick={handleQtyIncrease}>
           <IncreaseIcon />
         </QuantityButton>
       </QuanityControlContainer>
-      <AddToCartButton>
+      <AddToCartButton onClick={handleAddToCart}>
         <CartIcon />
         <CartText>add to cart</CartText>
       </AddToCartButton>

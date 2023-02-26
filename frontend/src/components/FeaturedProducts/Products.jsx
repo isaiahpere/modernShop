@@ -1,4 +1,3 @@
-import { featuredData } from "../../utilities/data/featuredData";
 import styled from "styled-components";
 import Card from "../GlobalStyles/Card";
 
