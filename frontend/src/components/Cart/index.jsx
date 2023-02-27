@@ -94,9 +94,6 @@ const Cart = ({ cartOpen, toggleCart }) => {
     enableBodyScroll(document);
   };
 
-  console.log("products from cart");
-  console.log(products);
-
   return (
     <Layover cartOpen={cartOpen} onClick={handleOutsideClick}>
       {isCartEmpty && <div>Cart is empty</div>}

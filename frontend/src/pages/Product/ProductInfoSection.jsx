@@ -196,8 +196,6 @@ const ProductInfoSection = ({ product }) => {
   };
 
   const handleAddToCart = () => {
-    console.log("product from handleAddToCart");
-    console.log(product);
     const cartData = {
       id: product.id,
       title,

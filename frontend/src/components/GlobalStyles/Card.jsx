@@ -97,8 +97,8 @@ const Price = styled.p`
 `;
 
 const Card = ({ item }) => {
-  const imageOne = `${process.env.REACT_APP_UPLOAD_URL}${item.attributes?.image?.data?.attributes?.url}`;
-  const imageTwo = `${process.env.REACT_APP_UPLOAD_URL}${item.attributes?.image2?.data?.attributes?.url}`;
+  const imageOne = item.attributes?.image?.data?.attributes?.url;
+  const imageTwo = item.attributes?.image2?.data?.attributes?.url;
   return (
     <Container to={`/product/${item.id}`}>
       <CardContainer>

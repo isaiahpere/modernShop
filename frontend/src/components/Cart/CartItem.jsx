@@ -67,8 +67,6 @@ const TrashIcon = styled(FaRegTrashAlt)`
 
 const CartItem = ({ item }) => {
   const dispatch = useDispatch();
-  console.log("item from cart");
-  console.log(item);
 
   const handleRemoveProduct = () => {
     dispatch(removeProductFromCart(item.id));
@@ -78,10 +76,7 @@ const CartItem = ({ item }) => {
     <Container>
       <CartContentContainer>
         <ImageContainer>
-          <Image
-            src={`${process.env.REACT_APP_UPLOAD_URL}${item.image}`}
-            alt=""
-          />
+          <Image src={item.image} alt="" />
         </ImageContainer>
         <CartInfoContainer>
           <ItemTitle>{item.title}</ItemTitle>

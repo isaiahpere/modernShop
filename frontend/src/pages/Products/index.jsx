@@ -45,8 +45,6 @@ const Products = () => {
     `/subcategories?[filters][categories][id][$eq]=${categoryId}`
   );
 
-  console.log(data);
-
   //  handle sorting asc
   const handleSortAsc = () => setSortMethod("asc");
 
@@ -63,9 +61,6 @@ const Products = () => {
         : selectedSubcategories.filter((item) => item !== value)
     );
   };
-
-  console.log("selected categories");
-  console.log(selectedSubcategories);
 
   return (
     <ProductsContainer>

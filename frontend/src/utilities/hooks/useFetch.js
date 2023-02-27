@@ -21,7 +21,6 @@ const useFetch = (url) => {
         SetLoading(false);
       } catch (err) {
         let errorMessage = err.message ? err.message : err;
-        console.log(errorMessage);
         setError(errorMessage);
         SetLoading(false);
       }
