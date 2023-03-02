@@ -13,6 +13,9 @@ const FeaturedProducts = ({ type }) => {
   const url = `/products?populate=*&[filters][type][$eq]=${type}`;
   const { data, loading } = useFetch(url);
 
+  console.log("DATA FROM FEATURED PRODUCTS");
+  console.log(data);
+
   return (
     <SectionContainer>
       <InfoSection title={type} />
